@@ -2,13 +2,13 @@
 
 A demo website for Tønne, the craft beer and cocktail bar at 1-3 St Martins, St Martin's Square, Leicester.
 
-Static front end only: Vite, React, TypeScript, Framer Motion, HashRouter. Built for GitHub Pages at `/tonne-leicester/`.
+Static front end only: Vite, React, TypeScript, Framer Motion, HashRouter. Deployed to GitHub Pages by the Actions workflow on every push; asset paths are relative, so it works under any Pages path.
 
 ## Run it
 
 ```sh
 npm install
-npm run dev      # http://localhost:5173/tonne-leicester/
+npm run dev      # http://localhost:5173/
 npm run build    # outputs dist/
 ```
 
