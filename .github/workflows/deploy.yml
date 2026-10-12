@@ -3,6 +3,9 @@ name: Deploy to GitHub Pages
 on:
   push:
   workflow_dispatch:
+  # If Pages is also set to build from a branch, that build publishes the raw source.
+  # Redeploy the built site straight after it so the right version is always live.
+  page_build:
 
 permissions:
   contents: read
