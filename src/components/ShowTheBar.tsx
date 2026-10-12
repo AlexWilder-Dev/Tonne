@@ -71,7 +71,7 @@ export function ShowTheBar({ taps, onClose }: Props) {
           const c = STYLE_COLOURS[t.style];
           return (
             <li key={t.id} className="stb-item">
-              <Glass className="stb-glass" filled beer={c.beer} head={c.head} delay={0.15 + i * 0.12} />
+              <Glass className="stb-glass" filled pourOnMount beer={c.beer} head={c.head} delay={0.25 + i * 0.25} />
               <span className="stb-name">{t.name}</span>
               <span className="stb-note">{t.sample ? 'sample tap' : t.note}</span>
             </li>

@@ -78,9 +78,8 @@ export function PickYourThirds() {
       <div className="pyt-board-col">
         <div className="board" role="group" aria-label="On tap. Pick up to three.">
           <div className="board-head" aria-hidden="true">
-            <span>Line</span>
-            <span>On now</span>
-            <span className="board-head-pour">{picks.length}/3 picked</span>
+            <span className="board-title">ØN TAP</span>
+            <span className="board-head-pour">{picks.length}/3 on the paddle</span>
           </div>
           <ol className="board-rows">
             {TAPS.map((tap, i) => {

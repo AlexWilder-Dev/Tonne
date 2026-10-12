@@ -1,7 +1,7 @@
 // One-off: builds favicons, the link-preview image and web-sized photos from public/media.
 // Usage: npm run media
 import sharp from 'sharp';
-import { readFile, writeFile } from 'node:fs/promises';
+import { mkdir, readFile, writeFile } from 'node:fs/promises';
 
 const src = await readFile('src/brand/paths.ts', 'utf8');
 const LOGO = JSON.parse(src.slice(src.indexOf('{'), src.lastIndexOf('}') + 1));
@@ -27,21 +27,40 @@ await writeFile('public/favicon.svg', oSvg(64, 0.22));
 await sharp(Buffer.from(oSvg(32, 0.22))).png().toFile('public/favicon-32.png');
 await sharp(Buffer.from(oSvg(180, 0))).png().toFile('public/apple-touch-icon.png');
 
-// ---- Web-sized photos (WebP alongside the originals)
-const photos = ['tonne-bar-at-jight.jpg', 'Tone-2022-1.jpg', 'tonne-oct-2020.jpg', 'image-59.png'];
-for (const p of photos) {
-  const base = p.replace(/\.(jpg|png)$/, '');
-  await sharp(`public/media/${p}`).webp({ quality: 78 }).toFile(`public/media/${base}.webp`);
+// ---- Web-sized photos: WebP + JPEG at a few widths, into public/media/web
+await mkdir('public/media/web', { recursive: true });
+const photos = {
+  'tonne-red-frontage': 'tonne-red-frontage.jpg',
+  'tonne-sign': 'tonne-sign.jpg',
+  'tonne-outside-2019': 'tonne-outside-2019.jpg',
+  'tonne-tap-board-2019': 'tonne-tap-board-2019.jpg',
+  'tonne-can': 'tonne-can.jpg',
+  'tonne-bar-at-jight': 'tonne-bar-at-jight.jpg',
+  'Tone-2022-1': 'Tone-2022-1.jpg',
+  'tonne-oct-2020': 'tonne-oct-2020.jpg',
+  'image-59': 'image-59.png',
+};
+const WIDTHS = [480, 800, 1200];
+const sizes = {};
+for (const [base, file] of Object.entries(photos)) {
+  const src = sharp(`public/media/${file}`).flatten({ background: '#ffffff' });
+  const { width } = await src.metadata();
+  const ws = [...WIDTHS.filter((w) => w < width - 80), width];
+  for (const w of ws) {
+    const img = sharp(`public/media/${file}`).flatten({ background: '#ffffff' }).resize({ width: w });
+    await img.clone().webp({ quality: 76 }).toFile(`public/media/web/${base}-${w}.webp`);
+    await img.clone().jpeg({ quality: 78, mozjpeg: true }).toFile(`public/media/web/${base}-${w}.jpg`);
+  }
+  sizes[base] = ws;
 }
-// The old shopfront is a PNG with alpha; a flat JPG is lighter for the fallback
-await sharp('public/media/image-59.png').flatten({ background: '#ffffff' }).jpeg({ quality: 80, mozjpeg: true }).toFile('public/media/image-59.jpg');
+console.log('photo widths', sizes);
 
 // ---- Link preview: 1200x630. Photo in two thirds, wordmark in the other.
 const OG_W = 1200, OG_H = 630, PANEL = 400;
-const photo = await sharp('public/media/tonne-bar-at-jight.jpg')
-  .resize(OG_W - PANEL, OG_H, { fit: 'cover', position: 'top', kernel: 'lanczos3' })
-  .modulate({ brightness: 1.05 })
-  .sharpen({ sigma: 0.6 })
+// Crop the red frontage to the fascia, the windows and the tables out front
+const photo = await sharp('public/media/tonne-red-frontage.jpg')
+  .extract({ left: 0, top: 330, width: 1080, height: 850 })
+  .resize(OG_W - PANEL, OG_H, { fit: 'cover', position: 'centre', kernel: 'lanczos3' })
   .toBuffer();
 const markW = 300, markH = Math.round((markW * WH) / WW);
 const glass = (x, fill) =>

@@ -88,31 +88,67 @@ export const SHOWS: Show[] = [
   { date: 'Sat 21 Feb', day: 21, act: 'Rob Copland', title: 'Work In Progress', price: '£8' },
 ];
 
+/** Widths match what scripts/media.mjs writes to public/media/web. */
 export const PHOTOS = {
+  frontage: {
+    base: 'tonne-red-frontage',
+    widths: [480, 800, 1080],
+    w: 1080,
+    h: 1331,
+    alt: 'The red Tønne shopfront on St Martin’s Walk, white letters on the fascia, the barrel sign hanging above and tables out on the paving.',
+  },
+  sign: {
+    base: 'tonne-sign',
+    widths: [480, 800, 1200, 1440],
+    w: 1440,
+    h: 1440,
+    alt: 'The TØNNE letters on the fascia in low sun, red brick and the St Martin’s Walk street sign above.',
+  },
+  outside: {
+    base: 'tonne-outside-2019',
+    widths: [480, 800, 960],
+    w: 960,
+    h: 960,
+    alt: 'A sunny afternoon outside Tønne in 2019: tables full in the square under the birch tree, TØNNE barriers round the seating.',
+  },
+  board: {
+    base: 'tonne-tap-board-2019',
+    widths: [480, 800, 960],
+    w: 960,
+    h: 960,
+    alt: 'The tap board above the bar in 2019, headed ØN TAP, with the row of taps on the reclaimed-wood wall below.',
+  },
+  can: {
+    base: 'tonne-can',
+    widths: [480, 750],
+    w: 750,
+    h: 742,
+    alt: 'A can of pale ale on a ledge among palm leaves against a green wall.',
+  },
   night: {
     base: 'tonne-bar-at-jight',
-    ext: 'jpg',
+    widths: [526],
     w: 526,
     h: 526,
-    alt: "Tønne's black shopfront at night, the sign lit and the windows glowing, tables out on the paving.",
+    alt: 'Tønne’s shopfront at night, the sign lit and the windows glowing, tables out on the paving.',
   },
-  frontage: {
+  rain: {
     base: 'Tone-2022-1',
-    ext: 'jpg',
+    widths: [480, 600],
     w: 600,
     h: 800,
-    alt: 'The red Tønne frontage in 2022, picnic benches lined up outside on the wet brick paving of the square.',
+    alt: 'The red Tønne frontage on a wet day in 2022, picnic benches lined up outside under the birches.',
   },
   outfront: {
     base: 'tonne-oct-2020',
-    ext: 'jpg',
+    widths: [526],
     w: 526,
     h: 526,
     alt: 'Someone mid-jump with an umbrella outside Tønne in October 2020, behind barriers lettered TØNNE.',
   },
   building: {
     base: 'image-59',
-    ext: 'jpg',
+    widths: [415],
     w: 415,
     h: 278,
     alt: 'Black and white photo of the Tønne building: the shopfront, its arched side window and the floor above.',

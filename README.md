@@ -27,6 +27,14 @@ The "open now" strip runs on London time. Add `?at=` before the `#` to show any 
 - `src/lib/hours.ts`: the opening-hours logic, including sessions that run past midnight.
 - `src/brand/paths.ts`: the wordmark and octopus, traced from the bar's own logo (`node scripts/trace-logo.mjs`).
 - `scripts/media.mjs`: favicons, `og.jpg` and WebP photos (`npm run media`).
-- `public/media/`: the bar's photos.
+- `public/media/`: the bar's photos (originals); `public/media/web/` holds the resized WebP/JPEG versions the site uses.
+
+## Photo sources
+
+- Red frontage (hero, link preview): the lead photo on the bar's Google Maps listing, Nov 2021.
+- Fascia sign, sunny 2019 frontage: the bar's own photos, as published by Cool As Leicester (2019, 2021).
+- Tap board 2019, can: the bar's Facebook and Instagram, as published by Cool As Leicester (2019).
+- Night, Oct 2020, wet 2022 and black-and-white frontages: the bar's Facebook, via the Pub History Project.
+- Logo: the bar's Facebook profile picture, traced to SVG.
 
 Site by AlexWilder-Dev

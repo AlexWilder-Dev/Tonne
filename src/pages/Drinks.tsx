@@ -4,6 +4,7 @@ import { m } from 'framer-motion';
 import { Photo } from '../components/Photo';
 import { Reveal } from '../components/Reveal';
 import { STYLE_COLOURS, TAPS, VENUE, type PhotoKey } from '../data';
+import { useScrollTarget } from '../lib/useScrollTarget';
 
 const SECTIONS = [
   { id: 'taps', label: 'Taps' },
@@ -15,6 +16,7 @@ const SECTIONS = [
 type SectionId = (typeof SECTIONS)[number]['id'];
 
 export function Drinks() {
+  useScrollTarget();
   const [active, setActive] = useState<SectionId>('taps');
   const tabs = useRef<HTMLDivElement>(null);
 
@@ -82,6 +84,10 @@ export function Drinks() {
               Taps
             </h2>
             <p className="drinks-sub">Poured in thirds, flights and trays. Seven lines, mostly unusual craft beer.</p>
+            <figure className="drinks-board">
+              <Photo k="board" sizes="(min-width: 900px) 55vw, 100vw" />
+              <figcaption className="photo-cap">The board in 2019. Today’s list is below; ask at the bar for what’s next on.</figcaption>
+            </figure>
             <ol className="tap-list">
               {TAPS.map((t, i) => (
                 <li key={t.id} className={t.sample ? 'is-sample' : undefined}>
@@ -101,17 +107,17 @@ export function Drinks() {
             id="cans"
             variant="wide"
             title="Cans & bottles"
-            photo="night"
-            position="20% 64%"
-            caption="Through the window, after dark."
+            photo="can"
+            position="50% 45%"
+            caption="From the bar’s own feed."
             line="A large range. The list lives behind the bar for now, so have a look in person or ask."
           />
           <AskAtTheBar
             id="cocktails"
             variant="split"
             title="Cocktails"
-            photo="outfront"
-            position="66% 55%"
+            photo="night"
+            position="30% 50%"
             line="A cocktail list with akvavit on it, plus tequila for the braver end of the evening. Ask at the bar what’s on tonight."
           />
           <AskAtTheBar

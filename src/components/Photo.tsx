@@ -6,17 +6,23 @@ type Props = {
   eager?: boolean;
   position?: string;
   alt?: string;
+  /** How wide the photo shows, for the browser to pick a file. */
+  sizes?: string;
 };
 
-const MEDIA = `${import.meta.env.BASE_URL}media/`;
+const WEB = `${import.meta.env.BASE_URL}media/web/`;
 
-export function Photo({ k, className, eager, position, alt }: Props) {
+export function Photo({ k, className, eager, position, alt, sizes = '100vw' }: Props) {
   const p = PHOTOS[k];
+  const set = (ext: string) => p.widths.map((w) => `${WEB}${p.base}-${w}.${ext} ${w}w`).join(', ');
+  const largest = p.widths[p.widths.length - 1];
   return (
     <picture className={className}>
-      <source type="image/webp" srcSet={`${MEDIA}${p.base}.webp`} />
+      <source type="image/webp" srcSet={set('webp')} sizes={sizes} />
       <img
-        src={`${MEDIA}${p.base}.${p.ext}`}
+        src={`${WEB}${p.base}-${largest}.jpg`}
+        srcSet={set('jpg')}
+        sizes={sizes}
         width={p.w}
         height={p.h}
         alt={alt ?? p.alt}
